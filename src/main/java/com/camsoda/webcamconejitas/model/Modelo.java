@@ -29,6 +29,9 @@ public class Modelo {
     @Column (name = "apellido", nullable = false, length = 15)
     private String apellido;
 
+    @Column (name = "correo", nullable = false, length = 100)
+    private String correo;
+
     @Column (name = "telefono", nullable = false, length = 100)
     private String telefono;
 
