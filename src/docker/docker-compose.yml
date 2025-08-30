@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  dockerwebinar:
+    build:
+      context: ../../../../../../Downloads
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - dtruestardb
+    environment:
+      RDS_HOSTNAME: dtruestardb
+      RDS_PORT: 5432
+    networks:
+      - docker-webinar-network
+
+  dtruestardb:
+    image: postgres:12.6
+    volumes:
+      - dtruestardb:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: dtruestaruser
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: dtruestarstore
+    networks:
+      - docker-webinar-network
+
+# Volumes
+volumes:
+  dtruestardb:
+    driver: local
+
+networks:
+  docker-webinar-network:
